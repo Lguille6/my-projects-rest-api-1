@@ -20,8 +20,9 @@ app.get("/projects", (c) => {
   return c.json(projects);
 });
 
-app.get("/projects", (c) => {
-  const payload = c.body().json();
+app.post("/projects", async (c) => {
+  const payload = await c.req.json();
+  console.log(payload);
   projects.push({
     id: nextProjectId,
     ...payload,
