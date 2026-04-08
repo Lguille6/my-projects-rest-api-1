@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import projects from './routes/projects.js'
 import { isApiError } from './utils/errors.js'
+import { sendError } from './utils/response.js'
 
 const app = new Hono()
 const api = new Hono()
@@ -13,6 +14,10 @@ app.use('*', async (c, next) => {
 api.route('/projects', projects)
 
 app.route('/api', api)
+
+app.notFound((c) => {
+  return sendError(c, 404, 'NOT_FOUND', 'Route not found.')
+})
 
 app.onError((error, c) => {
   if (isApiError(error)) {
