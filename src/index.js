@@ -14,6 +14,7 @@ app.use('*', async (c, next) => {
 
 api.route('/projects', projects)
 api.route('/tasks', tasks)
+
 app.route('/api', api)
 
 app.notFound((c) => {
